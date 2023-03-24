@@ -18,7 +18,6 @@ main :: Effect Unit
 main =
   runTest do
     runChapterExamples
-    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Recursion" do
       suite "Exercise - isEven" do
         test "0 is even" do
@@ -136,7 +135,7 @@ main =
         primeFactorsTest 6 [3, 2]
         primeFactorsTest 18 [3, 3, 2]
         primeFactorsTest 210 [ 7, 5, 3, 2 ]
-    suite "Exercise Group - Folds and Tail Recursion" do
+{-    suite "Exercise Group - Folds and Tail Recursion" do
       test "Exercise - allTrue" do
         assert "all elements true"
           $ allTrue [ true, true, true ]
@@ -152,6 +151,7 @@ main =
         test "Verify 44" do
           Assert.equal 701408733
             $ fibTailRec 44
+-}
       suite "Exercise - reverse" do
         test "Empty Array" do
           Assert.equal ([] :: Array Int)
@@ -162,6 +162,7 @@ main =
         test "More than 1 element" do
           Assert.equal [ 3, 2, 1 ]
             $ reverse [ 1, 2, 3 ]
+    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Filesystem" do
       test "Exercise - onlyFiles" do
         Assert.equal

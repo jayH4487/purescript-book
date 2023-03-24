@@ -2,7 +2,7 @@ module Test.MySolutions where
 
 import Prelude
 import Control.Alternative (guard)
-import Data.Array ((..), concat, cons, filter, head, null, tail)
+import Data.Array ((..), concat, cons, filter, foldl, foldr, head, null, tail)
 import Data.Maybe (fromMaybe)
 import Test.Examples
 
@@ -72,4 +72,22 @@ primeFactors num =
             where
                 firstFactor = fromMaybe num (head $ primeFactor num)
 
-    
+
+allTrue :: Array (Boolean) -> Boolean
+allTrue = foldl (\acc n -> acc == true && n == true) true
+
+fibTailRec :: Int -> Int
+fibTailRec n = fibTailRec' n 0
+    where
+    fibTailRec' :: Int -> Int -> Int
+    fibTailRec' n' acc =
+        if n' == 0 then
+            acc
+        else
+        if n' == 1 then
+            acc + 1
+        else
+            fibTailRec' 0 (fibTailRec (n' - 1) + fibTailRec (n' - 2))
+
+reverse :: forall a. Array a -> Array a
+reverse = foldl (\xs x -> [x] <> xs) []
