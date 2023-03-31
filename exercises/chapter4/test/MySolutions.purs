@@ -2,8 +2,9 @@ module Test.MySolutions where
 
 import Prelude
 import Control.Alternative (guard)
-import Data.Array ((..), concat, cons, filter, foldl, foldr, head, null, tail)
+import Data.Array ((..), (:), concat, cons, filter, foldl, foldr, head, null, tail)
 import Data.Maybe (fromMaybe)
+import Data.Path (isDirectory, ls, Path)
 import Test.Examples
 
 -- Note to reader: Add your solutions to this file
@@ -77,17 +78,21 @@ allTrue :: Array (Boolean) -> Boolean
 allTrue = foldl (\acc n -> acc == true && n == true) true
 
 fibTailRec :: Int -> Int
-fibTailRec n = fibTailRec' n 0
+fibTailRec n = fibTailRec' n 0 1
     where
-    fibTailRec' :: Int -> Int -> Int
-    fibTailRec' n' acc =
+    fibTailRec' :: Int -> Int -> Int -> Int
+    fibTailRec' n' acc b =
         if n' == 0 then
             acc
         else
-        if n' == 1 then
-            acc + 1
-        else
-            fibTailRec' 0 (fibTailRec (n' - 1) + fibTailRec (n' - 2))
+            fibTailRec' (n - 1) (b) (acc + b)
 
 reverse :: forall a. Array a -> Array a
 reverse = foldl (\xs x -> [x] <> xs) []
+
+
+onlyFiles :: Path -> Array Path
+onlyFiles file = file : do
+    child <- ls file
+    guard $ isDirectory file == false
+    onlyFiles child
